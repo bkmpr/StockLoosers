@@ -2,9 +2,15 @@
   <head>
     <script>
       function getTickers() {
-        var tickers = ["AAPL", "GOOG", "MSFT", "AMZN", "FB"];
-        var randomTicker = tickers[Math.floor(Math.random() * tickers.length)];
-        document.getElementById("ticker").innerHTML = randomTicker;
+        var url = "https://finance.yahoo.com/lookup/";
+        fetch(url)
+          .then(response => response.text())
+          .then(data => {
+            var regex = /(?:data-symbol=\")(.*?)(?:\")/g;
+            var tickers = data.match(regex);
+            var randomTicker = tickers[Math.floor(Math.random() * tickers.length)];
+            document.getElementById("ticker").innerHTML = randomTicker.slice(13, -1);
+          });
       }
     </script>
   </head>
