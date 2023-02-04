@@ -1,24 +1,15 @@
-<!DOCTYPE html>
 <html>
   <head>
     <script>
-      async function getTickers() {
-        const response = await fetch("https://finance.yahoo.com/losers");
-        const text = await response.text();
-        const parser = new DOMParser();
-        const htmlDoc = parser.parseFromString(text, "text/html");
-        const tickers = Array.from(
-          htmlDoc.querySelectorAll("td.data-col1")
-        ).map((td) => td.textContent);
-        const randomTicker = tickers[Math.floor(Math.random() * tickers.length)];
-        document.querySelector("#ticker").textContent = randomTicker;
+      function getTickers() {
+        var tickers = ["AAPL", "GOOG", "MSFT", "AMZN", "FB"];
+        var randomTicker = tickers[Math.floor(Math.random() * tickers.length)];
+        document.getElementById("ticker").innerHTML = randomTicker;
       }
     </script>
   </head>
-  <body>
-    <p>Randomly selected ticker: <span id="ticker"></span></p>
-    <script>
-      await getTickers();
-    </script>
+  <body onload="getTickers()">
+    <h1>Random Ticker:</h1>
+    <p id="ticker"></p>
   </body>
 </html>
